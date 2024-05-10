@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>User profile: {{ user.username }}!</h1>
+  <hr>
+  {% if user.open %}
+  <p>Requests are open! </p>
+  {% else %}
+  <p>Requests are closed! </p>
+  {% endif %}
+  <hr>
+  {% for request in requests %}
+  <p>
+    {% if request.author.username == user.username %}
+    {{ request.author.username }} says: 
+    <b>{{ request.body }}</b> <br> 
+    {% if request.artist %}
+    artist: {{ request.artist.username }} <br>
+    {% else %}
+    artist: Open to all!
+    {% endif %}
+    {% endif %}
+  </p>
+  {% endfor %}
+{% endblock %}
