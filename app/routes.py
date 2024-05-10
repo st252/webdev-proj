@@ -46,3 +46,15 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route(‘/submit-request’, methods=['GET', 'POST'])
+@login_required
+def submitRequest():
+    form = CreateRequest()
+    if form.validate_on_submit():
+	    request = Request(body=form.body.data, user_id=current_user.id, artist_id=artist.id)
+        db.session.add(request)
+	    db.session.commit()
+        flash(‘Request submitted successfully.’)
+        return redirect(url_for(‘createRequest’))
+    return render_template('createRequest.html', form=form)
