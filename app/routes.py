@@ -52,9 +52,14 @@ def register():
 def submitRequest():
     form = CreateRequest()
     if form.validate_on_submit():
-	    request = Request(body=form.body.data, user_id=current_user.id, artist_id=artist.id)
-        db.session.add(request)
-	    db.session.commit()
-        flash(‘Request submitted successfully.’)
-        return redirect(url_for(‘createRequest’))
+		if form.artist_user.data:
+	    	artUser = User.query.filter_by(artist_user=artist_user.data).first()
+			if artUser:
+				request = Request(body=form.body.data, user_id=current_user.id, artist_id= artUser.id)
+		else:
+			request = Request(body=form.body.data, user_id=current_user.id, artist_id= "null")
+    db.session.add(request)
+	db.session.commit()
+        flash('Request submitted successfully.')
+        return redirect(url_for('createRequest'))
     return render_template('createRequest.html', form=form)
