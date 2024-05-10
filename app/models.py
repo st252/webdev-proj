@@ -13,11 +13,11 @@ class User(UserMixin, db.Model):
     open = db.Column(db.Boolean, nullable=False, default=False)
 
     # Requests they make that for others to illustrate
-    # requests = db.relationship('Request', foreign_keys=[id], back_populates='author')
+    # requests = db.relationship('Request', back_populates='author')
     # Requests others make for them to illustrate
     # jobs = db.relationship('Request', back_populates='artist')
     replies = db.relationship('Reply', back_populates='artist')
-
+ 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -42,8 +42,8 @@ class Request(db.Model):
     # Whether the request has been completed
     complete = db.Column(db.Boolean, nullable=False, default=False)
 
-    author = db.relationship(User, foreign_keys=[user_id])
-    artist = db.relationship(User, foreign_keys=[artist_id])
+    author = db.relationship('User', foreign_keys=[user_id])
+    artist = db.relationship('User', foreign_keys=[artist_id])
 
     replies = db.relationship('Reply', back_populates='parent')
 
