@@ -33,4 +33,4 @@ class CreateRequest(FlaskForm):
 			if not artUser: 
 				raise ValidationError("Please type in an existing username.")
        		if not artUser.open:
-            		raise ValidationError("This artist is not accepting requests.”)
+            		raise ValidationError("This artist is not accepting requests.")
