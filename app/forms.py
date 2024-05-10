@@ -22,9 +22,9 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different username.')
 
 class CreateRequest(FlaskForm):
-	body = StringField(‘Body’, validators=[DataRequired()])
-	artist_user = StringField(‘Artist’)
-  	submit = SubmitField(‘Submit request’)
+	body = StringField('Body', validators=[DataRequired()])
+	artist_user = StringField('Artist')
+  	submit = SubmitField('Submit request')
 	
 	# Validates username of artist if provided
 	def validate_artistUser(self, artist): 
@@ -33,4 +33,4 @@ class CreateRequest(FlaskForm):
 			if not artUser: 
 				raise ValidationError("Please type in an existing username.")
        		if not artUser.open:
-            	raise ValidationError("This artist is not accepting requests.”)
+            		raise ValidationError("This artist is not accepting requests.”)
