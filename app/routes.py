@@ -52,7 +52,7 @@ def register():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     requests = [
-        {'author': user, 'body': 'Test post #1', 'artist': {'username': 'john'}},
+        {'author': {'username': 'susan'}, 'body': 'Test post #1', 'artist': {'username': 'john'}},
         {'author': user, 'body': 'Test post #2'},
         {'author': {'username': 'john'}, 'body': 'Test post #3', 'artist': {'username': 'bubble'}}
     ]

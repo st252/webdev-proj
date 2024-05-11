@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>User profile: {{ user.username }}!</h1>
+  <h1>User profile: {{ user.username }}</h1>
   <hr>
   {% if user.open %}
   <p>Requests are open! </p>
@@ -11,8 +11,8 @@
   <hr>
   {% for request in requests %}
   <p>
-    Requests: <br>
     {% if request.author.username == user.username %}
+    Requests: <br>
     {{ request.author.username }} says: 
     <b>{{ request.body }}</b> <br> 
     {% if request.artist %}
@@ -26,14 +26,27 @@
   <hr>
   {% for reply in replies %}
   <p>
-    Reply: <br>
     {% if reply.artist.username == user.username %}
+    Reply: <br>
     {{ reply.artist.username }} says: 
     <b>{{ reply.body }}</b> <br> 
     <img src="{{ url_for('static', filename=reply.body) }}" alt="local image">
     {% endif %}
   </p>
   {% endfor %}
-  
+  <hr>
+  {% if current_user.username == user.username %}
+    <p>
+      Your Jobs: <br>
+      {% for request in requests %}
+      {% if request.artist %}
+      {% if request.artist.username == user.username %}
+      {{ request.author.username }} says: 
+      <b>{{ request.body }}</b> <br> 
+      {% endif %}
+      {% endif %}
+    </p>
+    {% endfor %}
+  {% endif %}
   
 {% endblock %}
