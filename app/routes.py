@@ -56,4 +56,8 @@ def user(username):
         {'author': user, 'body': 'Test post #2'},
         {'author': {'username': 'john'}, 'body': 'Test post #3', 'artist': {'username': 'bubble'}}
     ]
-    return render_template('user.html', user=user, requests=requests)
+    replies = [
+        {'artist': user, 'body':'/img/cat.png', 'parent':1 },
+        {'artist': {'username': 'bubble'}, 'body':'/img/tired.png', 'parent':2 }
+    ]
+    return render_template('user.html', user=user, requests=requests, replies=replies)

@@ -11,6 +11,7 @@
   <hr>
   {% for request in requests %}
   <p>
+    Requests: <br>
     {% if request.author.username == user.username %}
     {{ request.author.username }} says: 
     <b>{{ request.body }}</b> <br> 
@@ -22,4 +23,17 @@
     {% endif %}
   </p>
   {% endfor %}
+  <hr>
+  {% for reply in replies %}
+  <p>
+    Reply: <br>
+    {% if reply.artist.username == user.username %}
+    {{ reply.artist.username }} says: 
+    <b>{{ reply.body }}</b> <br> 
+    <img src="{{ url_for('static', filename=reply.body) }}" alt="local image">
+    {% endif %}
+  </p>
+  {% endfor %}
+  
+  
 {% endblock %}
