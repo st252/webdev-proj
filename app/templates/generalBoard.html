@@ -2,4 +2,32 @@
 
 {% block content %}
     <h1> General Request Board </h1>
+    <p> This board displays all requests that can be completed by anyone.  </p>
+    <a href="{{ url_for('submit-request') }}"></a>
+        <button> Submit a request </button>    
+        </a>
+    {% for request in public_requests %}
+    <table>
+        <tr>
+            <th>Requestor</th>
+            <th>Description</th>
+            <th>Timestamp</th>
+            <th>Completed?</th>
+        </tr>
+        <tr>
+            <td>{{ request.author.username }}</td> <!-- turn username into link that directs user to their profile-->
+            <td>{{ request.body }}</td>
+            <td>{{ request.timestamp }}</td>
+            {% if request.body == True %} 
+                <td> Yes </td> <!--replace 'Yes' and 'No' with icons-->
+            {% else %}
+                <td> No </td>
+            {% endif %}
+        </tr>
+
+    <!-- add replies here -->
+  
+    </table>
+    <br>
+    {% endfor %}
 {% endblock %}
