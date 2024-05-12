@@ -56,10 +56,10 @@ def submitRequest():
 			request = Request(body=form.body.data, user_id=current_user.id, artist_id= artUser.id)
 		else:
 			request = Request(body=form.body.data, user_id=current_user.id, artist_id= None)
-    		db.session.add(request)
-			db.session.commit()
-        	flash('Request submitted successfully.')
-        	return redirect(url_for('createRequest'))
+    	db.session.add(request)
+		db.session.commit()
+        flash('Request submitted successfully.')
+        return redirect(url_for('createRequest'))
     return render_template('createRequest.html', form=form)
 
 @app.route('/public-requests', methods=['GET'])
