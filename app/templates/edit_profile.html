@@ -18,6 +18,15 @@
       <span class="error-msg">[{{ error }}]</span>
       {% endfor %}      
     </p>
+    <p>
+      {{ form.status.label }}<br>
+      {% for subfield in form.status %}
+      {{ subfield }} {{ subfield.label }}
+      {% endfor %}
+      {% for error in form.status.errors %}
+      <span class="error-msg">[{{ error }}]</span>
+      {% endfor %}      
+    </p>
     <p>{{ form.submit }}</p>
   </form>
 {% endblock %}

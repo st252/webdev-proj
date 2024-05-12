@@ -76,6 +76,7 @@ def edit_profile():
   if form.validate_on_submit():
     current_user.username = form.username.data
     current_user.bio = form.bio.data
+    current_user.open = form.status.data == 'open'
     db.session.commit()
     flash('Your changes have been saved.')
     return redirect(url_for('edit_profile'))
