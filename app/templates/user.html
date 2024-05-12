@@ -8,6 +8,21 @@
   {% else %}
   <p>Requests are closed! </p>
   {% endif %}
+  
+  {% if current_user.username == user.username %}
+  <p>
+    <hr>
+    Your Jobs: <br>
+    {% for request in requests %}
+    {% if request.artist %}
+    {% if request.artist.username == user.username %}
+    {{ request.author.username }} says: 
+    <b>{{ request.body }}</b> <br> 
+    {% endif %}
+    {% endif %}
+  </p>
+  {% endfor %}
+  {% endif %}
   <hr>
   {% for request in requests %}
   <p>
@@ -35,18 +50,4 @@
   </p>
   {% endfor %}
   <hr>
-  {% if current_user.username == user.username %}
-    <p>
-      Your Jobs: <br>
-      {% for request in requests %}
-      {% if request.artist %}
-      {% if request.artist.username == user.username %}
-      {{ request.author.username }} says: 
-      <b>{{ request.body }}</b> <br> 
-      {% endif %}
-      {% endif %}
-    </p>
-    {% endfor %}
-  {% endif %}
-  
 {% endblock %}
