@@ -47,19 +47,22 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route(‘/submit-request’, methods=['GET', 'POST'])
+@app.route('/submit-request', methods=['GET', 'POST'])
 @login_required
 def submitRequest():
     form = CreateRequest()
     if form.validate_on_submit():
 		if form.artist_user.data:
-	    	artUser = User.query.filter_by(artist_user=artist_user.data).first()
-			if artUser:
-				request = Request(body=form.body.data, user_id=current_user.id, artist_id= artUser.id)
+			request = Request(body=form.body.data, user_id=current_user.id, artist_id= artUser.id)
 		else:
-			request = Request(body=form.body.data, user_id=current_user.id, artist_id= "null")
-    db.session.add(request)
-	db.session.commit()
+			request = Request(body=form.body.data, user_id=current_user.id, artist_id= None)
+    	db.session.add(request)
+		db.session.commit()
         flash('Request submitted successfully.')
         return redirect(url_for('createRequest'))
     return render_template('createRequest.html', form=form)
+
+@app.route('/public-requests', methods=['GET'])
+def public_requests():
+    public_requests = Request.query.filter(Request.artist_id.is_(None)).all()
+    return render_template('generalBoard.html', public_requests=public_requests)
