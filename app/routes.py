@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
-from app.forms import LoginForm, RegistrationForm
+from app.models import User, Request
+from app.forms import LoginForm, RegistrationForm, CreateRequest
 from urllib.parse import urlsplit
 
 @app.route('/') 
@@ -50,17 +50,19 @@ def register():
 @app.route('/submit-request', methods=['GET', 'POST'])
 @login_required
 def submitRequest():
-	form = CreateRequest()
-	if form.validate_on_submit():
-		if form.artist_user.data:
-			request = Request(body=form.body.data, user_id=current_user.id, artist_id= artUser.id)
-		else:
-			request = Request(body=form.body.data, user_id=current_user.id, artist_id= None)
-		db.session.add(request)
-		db.session.commit()
-		flash('Request submitted successfully.')
-		return redirect(url_for('createRequest'))
-	return render_template('createRequest.html', form=form)
+    form = CreateRequest()
+    if form.validate_on_submit():
+        artist = None
+        if form.artist_user.data:
+            artist = User.query.filter_by(username=form.artist_user.data).first()
+            request = Request(body=form.body.data, user_id=current_user.id, artist_id= artist.id)
+        else:
+            request = Request(body=form.body.data, user_id=current_user.id, artist_id= None)
+        db.session.add(request)
+        db.session.commit()
+        flash('Request submitted successfully.')
+        return redirect(url_for('createRequest'))
+    return render_template('createRequest.html', form=form)
 
 @app.route('/public-requests', methods=['GET'])
 def public_requests():
