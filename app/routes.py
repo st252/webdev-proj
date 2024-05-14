@@ -61,7 +61,7 @@ def submitRequest():
         db.session.add(request)
         db.session.commit()
         flash('Request submitted successfully.')
-        return redirect(url_for('createRequest'))
+        return redirect(url_for('submitRequest'))
     return render_template('createRequest.html', form=form)
 
 @app.route('/public-requests', methods=['GET'])
