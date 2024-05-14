@@ -2,16 +2,16 @@
 
 {% block content %} 
 	<h1> Create a Request <h1>
- 	<form action='/submit-request' method="post">           
-	  <p> {{ form.body.label }}<br>{{ form.body }}
- 		</p>
-    <p> Please type in the artist’s username. If you leave this field blank, 
-        this request will available for everyone.<br>
-        {{ form.artist_user.label }}<br>
-        {{ form.artist_user }}
-    </p>
+	<form action='' method="post">
+		{{ form.hidden_tag() }}
+		{{ form.body.label }} {{ form.body }}
 
-    <p>{{ form.submit() }}</p>
+		<p> Please type in the artist’s username. If you leave this field blank, 
+    this request will available for everyone.</p>
+    
+    {{ form.artist_user.label }} {{ form.artist_user }}
+
+    <p> {{ form.submit() }} </p>
   </form>
 	
 {% endblock %}
