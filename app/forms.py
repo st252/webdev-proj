@@ -27,7 +27,7 @@ def validate_artistUser(self, artist):
         artUser = User.query.filter_by(artist_user=artist.data).first() 
         if not artUser: 
             raise ValidationError("Please type in an existing username.")
-        if not artUser.open:
+        if artUser.open == False:
             raise ValidationError("This artist is not accepting requests.")
 
 class CreateRequest(FlaskForm):
