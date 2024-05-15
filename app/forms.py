@@ -24,7 +24,7 @@ class RegistrationForm(FlaskForm):
 # Validates username of artist if provided in CreateRequest
 def validate_artistUser(self, artist): 
     if artist.data:
-        artUser = User.query.filter_by(username=artist_user.data).first() 
+        artUser = User.query.filter_by(username=self.artist_user.data).first() 
         if not artUser: 
             raise ValidationError("Please type in an existing username.")
         if artUser.open == False:
