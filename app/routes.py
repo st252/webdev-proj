@@ -50,7 +50,7 @@ def register():
 @app.route('/submit-request', methods=['GET', 'POST'])
 @login_required
 def submitRequest():
-   form = CreateRequest()
+    form = CreateRequest()
     if form.validate_on_submit():
         if form.artist_user.data:
             artist = User.query.filter_by(username=form.artist_user.data).first()
