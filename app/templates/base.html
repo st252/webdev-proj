@@ -23,6 +23,8 @@
     {% else %}
     <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
     <a href="{{ url_for('logout')}}">Logout</a>
+    <a href="{{ url_for('submitRequest') }}">Create a Request</a>
+    <a href="{{ url_for('public_requests') }}">General Request Board</a>
     {% endif %}
   </div> 
 
