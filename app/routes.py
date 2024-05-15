@@ -50,12 +50,15 @@ def register():
 @app.route('/submit-request', methods=['GET', 'POST'])
 @login_required
 def submitRequest():
-    form = CreateRequest()
+   form = CreateRequest()
     if form.validate_on_submit():
-        artist = None
         if form.artist_user.data:
             artist = User.query.filter_by(username=form.artist_user.data).first()
-            request = Request(body=form.body.data, user_id=current_user.id, artist_id= artist.id)
+            if artist == None:
+                flash('This user does not exist.')
+                return redirect(url_for('submitRequest'))
+            else:
+                request = Request(body=form.body.data, user_id=current_user.id, artist_id= artist.id)
         else:
             request = Request(body=form.body.data, user_id=current_user.id, artist_id= None)
         db.session.add(request)
