@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %} 
+	<h1> Create a Request </h1>
+	<form action='' method="post">
+		{{ form.hidden_tag() }}
+		<p> {{ form.body.label }} <br> {{ form.body }} </p>
+    
+    <p> Please type in the artist’s username. If you leave this field blank, 
+        this request will available for everyone.</p>
+    
+ 		 <p> {{ form.artist_user.label }} <br> {{ form.artist_user }} </p>
+      		{% for error in form.artist_user.errors %}
+      		<span class="error-msg"> [{{ error }}] </span>
+      		{% endfor %} 
+    <p> {{ form.submit() }} </p>
+  </form>
+	
+{% endblock %}

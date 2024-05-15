@@ -21,6 +21,20 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different username.')
 
+# Validates username of artist if provided in CreateRequest
+def validate_artistUser(self, artist): 
+    if artist.data:
+        artUser = User.query.filter_by(username=self.artist_user.data).first() 
+        if not artUser: 
+            raise ValidationError("Please type in an existing username.")
+        if artUser.open == False:
+            raise ValidationError("This artist is not accepting requests.")
+
+class CreateRequest(FlaskForm):
+    body = StringField('Body', validators=[DataRequired()])
+    artist_user = StringField('Artist', validators=[validate_artistUser])
+    submit = SubmitField('Submit request')
+
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     bio = TextAreaField('Bio', validators=[Length(min=0, max=256)])
