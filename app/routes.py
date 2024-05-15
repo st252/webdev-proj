@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import *
 from app.forms import EditProfileForm, LoginForm, RegistrationForm
 from urllib.parse import urlsplit
 from datetime import datetime, timezone
@@ -58,15 +58,22 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
+    requests = Request.query.all()
+    replies = Reply.query.all()
+
+    # Temporary data used for testing
+    '''
     requests = [
         {'author': {'username': 'susan'}, 'body': 'Test post #1', 'artist': {'username': 'john'}},
         {'author': user, 'body': 'Test post #2'},
         {'author': {'username': 'john'}, 'body': 'Test post #3', 'artist': {'username': 'bubble'}}
     ]
+    
     replies = [
         {'artist': user, 'body':'/img/cat.png', 'parent':1 },
         {'artist': {'username': 'bubble'}, 'body':'/img/tired.png', 'parent':2 }
     ]
+    '''
     return render_template('user.html', user=user, requests=requests, replies=replies)
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
