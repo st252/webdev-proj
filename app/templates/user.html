@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>User profile: {{ user.username }}</h1>
+  {% if user.bio %}<p>{{ user.bio }}</p>{% endif %}
+  {% if user.last_seen %}<p>Last seen on:{{ user.last_seen }}</p>{% endif %}
+  <hr>
+  {% if user.open %}
+  <p>Requests are open! </p>
+  {% else %}
+  <p>Requests are closed! </p>
+  {% endif %}
+
+  {% if current_user.username == user.username %}
+  <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+  <p>
+    <hr>
+    Your Jobs: <br>
+    {% for request in requests %}
+    {% if request.artist %}
+    {% if request.artist.username == user.username %}
+    {{ request.author.username }} says: 
+    <b>{{ request.body }}</b> <br> 
+    {% endif %}
+    {% endif %}
+  </p>
+  {% endfor %}
+  {% endif %}
+  <hr>
+  {% for request in requests %}
+  <p>
+    {% if request.author.username == user.username %}
+    Requests: <br>
+    {{ request.author.username }} says: 
+    <b>{{ request.body }}</b> <br> 
+    {% if request.artist %}
+    artist: {{ request.artist.username }} <br>
+    {% else %}
+    artist: Open to all!
+    {% endif %}
+    {% endif %}
+  </p>
+  {% endfor %}
+  <hr>
+  {% for reply in replies %}
+  <p>
+    {% if reply.artist.username == user.username %}
+    Reply: <br>
+    {{ reply.artist.username }} says: 
+    <b>{{ reply.body }}</b> <br> 
+    <img src="{{ url_for('static', filename=reply.body) }}" alt="local image">
+    {% endif %}
+  </p>
+  {% endfor %}
+  <hr>
+{% endblock %}

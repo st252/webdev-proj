@@ -17,6 +17,9 @@ class User(UserMixin, db.Model):
     # Requests others make for them to illustrate
     # jobs = db.relationship('Request', back_populates='artist')
     replies = db.relationship('Reply', back_populates='artist')
+
+    bio = db.Column(db.String(256), nullable=True)
+    last_seen = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
  
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
