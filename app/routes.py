@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import *
-from app.forms import EditProfileForm, LoginForm, RegistrationForm
+from app.models import User, Request, Reply
+from app.forms import LoginForm, RegistrationForm, CreateRequest, EditProfileForm
 from urllib.parse import urlsplit
 from datetime import datetime, timezone
 
@@ -53,6 +53,31 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/submit-request', methods=['GET', 'POST'])
+@login_required
+def submitRequest():
+    form = CreateRequest()
+    if form.validate_on_submit():
+        if form.artist_user.data:
+            artist = User.query.filter_by(username=form.artist_user.data).first()
+            if artist == None:
+                flash('This user does not exist.')
+                return redirect(url_for('submitRequest'))
+            else:
+                request = Request(body=form.body.data, user_id=current_user.id, artist_id= artist.id)
+        else:
+            request = Request(body=form.body.data, user_id=current_user.id, artist_id= None)
+        db.session.add(request)
+        db.session.commit()
+        flash('Request submitted successfully.')
+        return redirect(url_for('submitRequest'))
+    return render_template('createRequest.html', form=form)
+
+@app.route('/public-requests', methods=['GET'])
+def public_requests():
+    public_requests = Request.query.filter(Request.artist_id.is_(None)).all()
+    return render_template('generalBoard.html', public_requests=public_requests)
 
 @app.route('/user/<username>')
 @login_required
