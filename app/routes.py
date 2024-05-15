@@ -116,3 +116,10 @@ def edit_profile():
     form.username.data = current_user.username
     form.bio.data = current_user.bio
   return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+@app.route('/request/<request_id>')
+@login_required
+def request(request_id):
+    request = Request.query.filter_by(request_id=request_id).first_or_404()
+    #replies = Reply.query.filter_by(parent=reply_id)
+    return render_template('request.html', request=request)

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>
+    Requests: <br>
+    {{ request.author.username }} says: 
+    <b>{{ request.body }}</b> <br> 
+    {% if request.artist %}
+    artist: {{ request.artist.username }} <br>
+    {% else %}
+    artist: Open to all!
+    {% endif %}
+  </p>
+  <hr>
+{% endblock %}
