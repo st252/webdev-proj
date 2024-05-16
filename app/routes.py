@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Request
+from app.models import User, Request, Reply
 from app.forms import LoginForm, RegistrationForm, CreateRequest, EditProfileForm
 from urllib.parse import urlsplit
 from datetime import datetime, timezone
@@ -83,15 +83,22 @@ def public_requests():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
+    requests = Request.query.all()
+    replies = Reply.query.all()
+
+    # Temporary data used for testing
+    '''
     requests = [
         {'author': {'username': 'susan'}, 'body': 'Test post #1', 'artist': {'username': 'john'}},
         {'author': user, 'body': 'Test post #2'},
         {'author': {'username': 'john'}, 'body': 'Test post #3', 'artist': {'username': 'bubble'}}
     ]
+    
     replies = [
         {'artist': user, 'body':'/img/cat.png', 'parent':1 },
         {'artist': {'username': 'bubble'}, 'body':'/img/tired.png', 'parent':2 }
     ]
+    '''
     return render_template('user.html', user=user, requests=requests, replies=replies)
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -109,3 +116,10 @@ def edit_profile():
     form.username.data = current_user.username
     form.bio.data = current_user.bio
   return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+@app.route('/request/<request_id>')
+@login_required
+def request(request_id):
+    request = Request.query.filter_by(request_id=request_id).first_or_404()
+    #replies = Reply.query.filter_by(parent=reply_id)
+    return render_template('request.html', request=request)
