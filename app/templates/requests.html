@@ -2,7 +2,7 @@
 
 {% block content %}
   <p>
-    Requests: <br>
+    Request: <br>
     {{ requests.author.username }} says: 
     <b>{{ requests.body }}</b> <br> 
     {% if requests.artist %}
@@ -12,4 +12,10 @@
     {% endif %}
   </p>
   <hr>
+  {% for reply in replies %}  
+  {{ reply.artist.username }} says: 
+    <b>{{ reply.body }}</b> <br> 
+    <img src="{{ url_for('static', filename=reply.body) }}" alt="reply image">
+    <hr>
+  {% endfor %}
 {% endblock %}

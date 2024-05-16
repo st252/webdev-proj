@@ -45,7 +45,7 @@
   {% for reply in replies %}
   <p>
     {% if reply.artist.username == user.username %}
-    Reply to: {{ reply.parent.body }}<br> 
+    Reply to: <a href="{{ url_for('requests', request_id=reply.parent.request_id) }}">{{ reply.parent.body }}</a><br> 
     {{ reply.artist.username }} says: 
     <b>{{ reply.body }}</b> <br> 
     <img src="{{ url_for('static', filename=reply.body) }}" alt="local image">
