@@ -3,7 +3,7 @@
 {% block content %}
   <p>
     Request: <br>
-    {{ requests.author.username }} says: 
+    <a href="{{ url_for('user', username=requests.author.username) }}">{{ requests.author.username }}</a> says: 
     <b>{{ requests.body }}</b> <br> 
     {% if requests.artist %}
     artist: {{ requests.artist.username }} <br>
@@ -13,7 +13,7 @@
   </p>
   <hr>
   {% for reply in replies %}  
-  {{ reply.artist.username }} says: 
+  <a href="{{ url_for('user', username=reply.artist.username) }}">{{ reply.artist.username }}</a> says: 
     <b>{{ reply.body }}</b> <br> 
     <img src="{{ url_for('static', filename=reply.body) }}" alt="reply image">
     <hr>

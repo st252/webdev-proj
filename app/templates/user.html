@@ -19,8 +19,8 @@
     {% for request in requests %}
     {% if request.artist %}
     {% if request.artist.username == user.username and request.complete == False%}
-    {{ request.author.username }} says: 
-    <b>{{ request.body }}</b> <br> 
+    <a href="{{ url_for('user', username=request.author.username) }}">{{ request.author.username }}</a> says: 
+    <b><a href="{{ url_for('requests', request_id=request.request_id) }}">{{ request.body }}</a></b> <br> 
     {% endif %}
     {% endif %}
   </p>
