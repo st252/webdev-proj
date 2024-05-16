@@ -3,10 +3,10 @@
 {% block content %}
   <p>
     Requests: <br>
-    {{ request.author.username }} says: 
-    <b>{{ request.body }}</b> <br> 
-    {% if request.artist %}
-    artist: {{ request.artist.username }} <br>
+    {{ requests.author.username }} says: 
+    <b>{{ requests.body }}</b> <br> 
+    {% if requests.artist %}
+    artist: {{ requests.artist.username }} <br>
     {% else %}
     artist: Open to all!
     {% endif %}
