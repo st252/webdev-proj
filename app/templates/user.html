@@ -32,9 +32,9 @@
     {% if request.author.username == user.username %}
     Requests: <br>
     {{ request.author.username }} says: 
-    <b>{{ request.body }}</b> <br> 
+    <b><a href="{{ url_for('requests', request_id=request.request_id) }}">{{ request.body }}</a></b> <br> 
     {% if request.artist %}
-    artist: {{ request.artist.username }} <br>
+    artist: <a href="{{ url_for('user', username=request.artist.username) }}">{{ request.artist.username }}</a> <br>
     {% else %}
     artist: Open to all!
     {% endif %}
