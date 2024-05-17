@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Request, Reply
-from app.forms import LoginForm, RegistrationForm, CreateRequest, EditProfileForm
+from app.forms import LoginForm, RegistrationForm, CreateRequest, EditProfileForm, CreateReply
 from urllib.parse import urlsplit
 from datetime import datetime, timezone
 
@@ -120,7 +120,13 @@ def edit_profile():
 @app.route('/requests/<request_id>')
 @login_required
 def requests(request_id):
-    form = CreateRequest()
+    form = CreateReply()
+    if form.validate_on_submit():
+        reply = Reply(body=form.data.body, request_id=request_id, artist_id=current_user.id)
+        db.session.add(reply)
+        db.session.commit()
+        flash('Your reply has been posted.')
+        return redirect(url_for('/requests/<request_id>'))
     requests = Request.query.filter_by(request_id=request_id).first_or_404()
     replies = Reply.query.filter_by(request_id=request_id)
     return render_template('requests.html', requests=requests, replies=replies,  form=form)
@@ -134,7 +140,7 @@ def send_reply(request_id):
     if form.validate_on_submit():
         body = form.body.data
         if body:
-            reply = Reply(body=body, artist_id=req.artist_id, request_id=req.request_id)
+            reply = Reply(body=body, artist_id=current_user.id, request_id=req.request_id)
             db.session.add(reply)
             db.session.commit()
             flash('Your reply has been sent.')

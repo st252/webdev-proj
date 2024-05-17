@@ -14,7 +14,7 @@
   <hr>
   <button id="reply-btn">Reply</button>
   <div id="reply-form-req-page">
-    <form action="{{ url_for('send_reply', request_id=req.request_id) }}" method="post">
+    <form action="{{ url_for('send_reply', request_id=requests.request_id) }}" method="post">
       {{ form.hidden_tag() }}
       <p> Please provide the link to your drawing.</p>
       <p> {{ form.body.label }} <br> {{ form.body }} </p>
