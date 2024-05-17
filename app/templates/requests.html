@@ -12,6 +12,7 @@
     {% endif %}
   </p>
   <hr>
+  {% if requests.artist.username == current_user.username or requests.artist.username == null %}
   <button id="reply-btn">Reply</button>
   <div id="reply-form-req-page">
     <form action="{{ url_for('send_reply', request_id=requests.request_id) }}" method="post">
@@ -22,6 +23,7 @@
     </form>
   </div>
   <hr>
+  {% endif %}
   {% for reply in replies %}  
   <a href="{{ url_for('user', username=reply.artist.username) }}">{{ reply.artist.username }}</a> says: 
     <b>{{ reply.body }}</b> <br> 
