@@ -124,3 +124,22 @@ def requests(request_id):
     requests = Request.query.filter_by(request_id=request_id).first_or_404()
     replies = Reply.query.filter_by(request_id=request_id)
     return render_template('requests.html', requests=requests, replies=replies,  form=form)
+
+
+@app.route('/reply/<request_id>', methods=['POST', 'GET'])
+@login_required
+def send_reply(request_id):
+    form = CreateReply()
+    req = Request.query.filter_by(request_id=request_id).first_or_404()
+    if form.validate_on_submit():
+        body = form.body.data
+        if body:
+            reply = Reply(body=body, artist_id=req.artist_id, request_id=req.request_id)
+            db.session.add(reply)
+            db.session.commit()
+            flash('Your reply has been sent.')
+            return redirect(url_for('requests', request_id=request_id))
+        else:
+            flash('Reply cannot be empty.')
+            return redirect(url_for('requests', request_id=request_id))
+    return render_template('requests.html', form=form, req=req)
