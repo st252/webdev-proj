@@ -11,6 +11,13 @@
     artist: Open to all!
     {% endif %}
   </p>
+  {% if requests.author.username == current_user.username or requests.artist.username == current_user.username %}
+  <form action="{{ url_for('complete_request', request_id=requests.request_id) }}" method="post">
+    {{ complete_form.hidden_tag() }}
+    {{ complete_form.request_id(value=requests.request_id) }}
+    {{ complete_form.submit() }}
+  </form>
+  {% endif %}
   <hr>
   {% if requests.artist.username == current_user.username or requests.artist.username == null %}
   <button id="reply-btn">Reply</button>

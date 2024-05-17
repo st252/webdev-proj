@@ -16,7 +16,7 @@
             <td><a href="{{ url_for('user', username=request.author.username) }}">{{ request.author.username }}</a></td> <!-- turn username into link that directs user to their profile-->
             <td><a href="{{ url_for('requests', request_id=request.request_id) }}">{{ request.body }}</a></td>
             <td>{{ request.timestamp }}</td>
-            {% if request.body == True %} 
+            {% if request.complete == True %} 
                 <td> Yes </td> <!--replace 'Yes' and 'No' with icons-->
             {% else %}
                 <td> No </td>

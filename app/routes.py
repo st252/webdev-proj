@@ -1,8 +1,8 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import jsonify, render_template, flash, redirect, url_for, request
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Request, Reply
-from app.forms import LoginForm, RegistrationForm, CreateRequest, EditProfileForm, CreateReply
+from app.forms import CompleteRequest, LoginForm, RegistrationForm, CreateRequest, EditProfileForm, CreateReply
 from urllib.parse import urlsplit
 from datetime import datetime, timezone
 
@@ -117,19 +117,31 @@ def edit_profile():
     form.bio.data = current_user.bio
   return render_template('edit_profile.html', title='Edit Profile', form=form)
 
-@app.route('/requests/<request_id>')
+@app.route('/requests/<request_id>',  methods=['POST', 'GET'])
 @login_required
 def requests(request_id):
     form = CreateReply()
+    complete_form = CompleteRequest()
     if form.validate_on_submit():
         reply = Reply(body=form.data.body, request_id=request_id, artist_id=current_user.id)
         db.session.add(reply)
         db.session.commit()
         flash('Your reply has been posted.')
         return redirect(url_for('/requests/<request_id>'))
+    if complete_form.validate_on_submit():
+        request = Request.query.get_or_404(complete_form.request_id.data)
+        if request.author.id != current_user.id or request.artist.id != current_user.id:
+            flash('You are not authorised for this action.')
+            return redirect(url_for('requests', request_id=request_id))
+        
+        request.complete = True
+        db.session.commit()
+        flash('Request complete')
+        return redirect(url_for('requests', request_id=request_id))
+
     requests = Request.query.filter_by(request_id=request_id).first_or_404()
     replies = Reply.query.filter_by(request_id=request_id)
-    return render_template('requests.html', requests=requests, replies=replies,  form=form)
+    return render_template('requests.html', requests=requests, replies=replies,  form=form, complete_form=complete_form)
 
 
 @app.route('/reply/<request_id>', methods=['POST', 'GET'])
@@ -149,3 +161,20 @@ def send_reply(request_id):
             flash('Reply cannot be empty.')
             return redirect(url_for('requests', request_id=request_id))
     return render_template('requests.html', form=form, req=req)
+
+
+@app.route('/complete_request/<request_id>', methods=['POST'])
+@login_required
+def complete_request(request_id):
+    req = Request.query.filter_by(request_id=request_id).first_or_404()
+    if req.author.id != current_user.id:
+        flash('You are not authorised for this action.')
+        return redirect(url_for('requests', request_id=req.request_id))
+    if req.artist_id is not None and current_user.id != req.artist_id:
+        flash('You are not authorised for this action.')
+        return redirect(url_for('requests', request_id=req.request_id))
+    req.complete = True
+    db.session.commit()
+    flash('Request complete')
+    return redirect(url_for('requests', request_id=request_id))
+
