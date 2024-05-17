@@ -19,8 +19,8 @@
     {% for request in requests %}
     {% if request.artist %}
     {% if request.artist.username == user.username and request.complete == False%}
-    {{ request.author.username }} says: 
-    <b>{{ request.body }}</b> <br> 
+    <a href="{{ url_for('user', username=request.author.username) }}">{{ request.author.username }}</a> says: 
+    <b><a href="{{ url_for('requests', request_id=request.request_id) }}">{{ request.body }}</a></b> <br> 
     {% endif %}
     {% endif %}
   </p>
@@ -32,9 +32,9 @@
     {% if request.author.username == user.username %}
     Requests: <br>
     {{ request.author.username }} says: 
-    <b>{{ request.body }}</b> <br> 
+    <b><a href="{{ url_for('requests', request_id=request.request_id) }}">{{ request.body }}</a></b> <br> 
     {% if request.artist %}
-    artist: {{ request.artist.username }} <br>
+    artist: <a href="{{ url_for('user', username=request.artist.username) }}">{{ request.artist.username }}</a> <br>
     {% else %}
     artist: Open to all!
     {% endif %}
@@ -45,7 +45,7 @@
   {% for reply in replies %}
   <p>
     {% if reply.artist.username == user.username %}
-    Reply to: {{ reply.parent.body }}<br> 
+    Reply to: <a href="{{ url_for('requests', request_id=reply.parent.request_id) }}">{{ reply.parent.body }}</a><br> 
     {{ reply.artist.username }} says: 
     <b>{{ reply.body }}</b> <br> 
     <img src="{{ url_for('static', filename=reply.body) }}" alt="local image">

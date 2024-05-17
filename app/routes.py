@@ -120,6 +120,7 @@ def edit_profile():
 @app.route('/requests/<request_id>')
 @login_required
 def requests(request_id):
+    form = CreateRequest()
     requests = Request.query.filter_by(request_id=request_id).first_or_404()
-    #replies = Reply.query.filter_by(parent=reply_id)
-    return render_template('requests.html', requests=requests)
+    replies = Reply.query.filter_by(request_id=request_id)
+    return render_template('requests.html', requests=requests, replies=replies,  form=form)
