@@ -1,4 +1,5 @@
-from flask import jsonify, render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request
+from sqlalchemy import and_
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Request, Reply
@@ -76,8 +77,14 @@ def submitRequest():
 
 @app.route('/public-requests', methods=['GET'])
 def public_requests():
-    public_requests = Request.query.filter(Request.artist_id.is_(None)).all()
+    public_requests = Request.query.filter(and_(Request.artist_id.is_(None), Request.complete.is_(False))).all()
+
     return render_template('generalBoard.html', public_requests=public_requests)
+
+@app.route('/all-requests', methods=['GET'])
+def all_requests():
+    all_requests = Request.query.all()
+    return render_template('allBoard.html', all_requests=all_requests)
 
 @app.route('/user/<username>')
 @login_required

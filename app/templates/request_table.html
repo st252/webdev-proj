@@ -1,0 +1,26 @@
+<table>
+  <tr>
+      <th>Requestor</th>
+      <th>Description</th>
+      <th>Artist</th>
+      <th>Timestamp</th>
+      <th>Completed?</th>
+  </tr>
+  <tr>
+      <td><a href="{{ url_for('user', username=requests.author.username) }}">{{ requests.author.username }}</a></td> <!-- turn username into link that directs user to their profile-->
+      <td><a href="{{ url_for('requests', request_id=requests.request_id) }}">{{ requests.body }}</a></td>
+      <td>
+        {% if requests.artist.username %}
+        <a  href="{{ url_for('user', username=requests.artist.username) }}">{{ requests.artist.username }}</a>
+        {% else %}
+        Open to all!
+        {% endif %}
+      </td>
+      <td>{{ requests.timestamp }}</td>
+      {% if requests.complete == True %} 
+          <td> Yes </td> <!--replace 'Yes' and 'No' with icons-->
+      {% else %}
+          <td> No </td>
+      {% endif %}
+  </tr>  
+</table>
