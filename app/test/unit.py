@@ -13,3 +13,11 @@ class BasicUnitTests(TestCase):
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
+
+    def test_password(self):
+        s = User(username="john")
+        s.set_password("bubbles")
+        db.session.add(s)
+        db.session.commit()
+        self.assertTrue(s.check_password("bubbles"))
+        self.assertFalse(s.check_password("rumbles"))
