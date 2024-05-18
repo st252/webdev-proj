@@ -5,7 +5,7 @@ from app.config import TestConfig
 class BasicUnitTests(TestCase):
     def setUp(self):
         testApp = create_app(TestConfig)
-        self.app_context = testApp.app_context
+        self.app_context = testApp.app_context()
         self.app_context.push()
         db.create_all()
         
