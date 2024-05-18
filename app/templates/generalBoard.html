@@ -3,8 +3,8 @@
 {% block content %}
     <h1> General Request Board </h1>
     <p> This board displays all requests that can be completed by anyone.  </p>
-    <a href="{{ url_for('all_requests') }}"><button id='show-all-btn'>Show All Requests</button></a>
-    <a href="{{ url_for('submitRequest') }}"><button> Submit a request </button>  </a>
+    <a href="{{ url_for('main.all_requests') }}"><button id='show-all-btn'>Show All Requests</button></a>
+    <a href="{{ url_for('main.submitRequest') }}"><button> Submit a request </button>  </a>
     {% for requests in public_requests %}
     <div id="request-board">
         {% include 'request_table.html' %}
