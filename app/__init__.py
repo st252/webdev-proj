@@ -10,7 +10,7 @@ login.login_view = 'login'
 
 def create_app(config):
   app = Flask(__name__)
-  app.config.from_object(Config)
+  app.config.from_object(config)
 
   from app.blueprints import main
   app.register_blueprint(main)
