@@ -3,23 +3,23 @@ from sqlalchemy import and_
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Request, Reply
-from app.forms import CompleteRequest, LoginForm, RegistrationForm, CreateRequest, EditProfileForm, CreateReply
+from app.forms import CompleteRequest, LoginForm, RegistrationForm, CreateRequest, EditProfileForm, CreateReply, SearchUser
 from urllib.parse import urlsplit
 from datetime import datetime, timezone
 
-@main.before_request
+@app.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.now(timezone.utc)
         db.session.commit()
 
-@main.route('/') 
-@main.route('/index') 
+@app.route('/') 
+@app.route('/index') 
 @login_required
 def index():
     return render_template("index.html")
 
-@main.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -36,12 +36,12 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
-@main.route('/logout')
+@app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@main.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -55,7 +55,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-@main.route('/submit-request', methods=['GET', 'POST'])
+@app.route('/submit-request', methods=['GET', 'POST'])
 @login_required
 def submitRequest():
     form = CreateRequest()
@@ -75,18 +75,18 @@ def submitRequest():
         return redirect(url_for('submitRequest'))
     return render_template('createRequest.html', form=form)
 
-@main.route('/public-requests', methods=['GET'])
+@app.route('/public-requests', methods=['GET'])
 def public_requests():
     public_requests = Request.query.filter(and_(Request.artist_id.is_(None), Request.complete.is_(False))).all()
 
     return render_template('generalBoard.html', public_requests=public_requests)
 
-@main.route('/all-requests', methods=['GET'])
+@app.route('/all-requests', methods=['GET'])
 def all_requests():
     all_requests = Request.query.all()
     return render_template('allBoard.html', all_requests=all_requests)
 
-@main.route('/user/<username>')
+@app.route('/user/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
@@ -108,7 +108,7 @@ def user(username):
     '''
     return render_template('user.html', user=user, requests=requests, replies=replies)
 
-@main.route('/edit_profile', methods=['GET', 'POST'])
+@app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
   form = EditProfileForm(current_user.username)
@@ -124,7 +124,7 @@ def edit_profile():
     form.bio.data = current_user.bio
   return render_template('edit_profile.html', title='Edit Profile', form=form)
 
-@main.route('/requests/<request_id>',  methods=['POST', 'GET'])
+@app.route('/requests/<request_id>',  methods=['POST', 'GET'])
 @login_required
 def requests(request_id):
     form = CreateReply()
@@ -151,7 +151,7 @@ def requests(request_id):
     return render_template('requests.html', requests=requests, replies=replies,  form=form, complete_form=complete_form)
 
 
-@main.route('/reply/<request_id>', methods=['POST', 'GET'])
+@app.route('/reply/<request_id>', methods=['POST', 'GET'])
 @login_required
 def send_reply(request_id):
     form = CreateReply()
@@ -170,7 +170,7 @@ def send_reply(request_id):
     return render_template('requests.html', form=form, req=req)
 
 
-@main.route('/complete_request/<request_id>', methods=['POST'])
+@app.route('/complete_request/<request_id>', methods=['POST'])
 @login_required
 def complete_request(request_id):
     req = Request.query.filter_by(request_id=request_id).first_or_404()
@@ -185,3 +185,12 @@ def complete_request(request_id):
     flash('Request complete')
     return redirect(url_for('requests', request_id=request_id))
 
+@app.route('/search_user', methods=['GET','POST'])
+@login_required
+def search_user():
+  form = SearchUser()
+  if form.validate_on_submit():
+    username = form.username.data
+    flash('Found User')
+    return redirect(url_for('user', username=username))
+  return render_template('search_user.html', title='Edit Profile', form=form)

@@ -7,9 +7,9 @@
   <script src="{{ url_for('static',filename='script.js') }}"></script>
     
   {% if title %}
-  <title>Illust - {{ title }}</title>
+  <title>Illuquest - {{ title }}</title>
   {% else %}
-  <title>Illust</title>
+  <title>Illuquest</title>
   {% endif %}
 
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
@@ -17,15 +17,16 @@
 </head>
 <body>
   <div class="header">
-    Illust: 
+    Illuquest: 
     <a href="{{ url_for('index') }}">Home</a>
     {% if current_user.is_anonymous %}
     <a href="{{ url_for('login') }}">Login</a>
     {% else %}
     <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-    <a href="{{ url_for('logout')}}">Logout</a>
     <a href="{{ url_for('submitRequest') }}">Create a Request</a>
     <a href="{{ url_for('public_requests') }}">General Request Board</a>
+    <a href="{{ url_for('search_user') }}">Search</a>
+    <a href="{{ url_for('logout')}}">Logout</a>
     {% endif %}
   </div> 
 
