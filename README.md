@@ -1,5 +1,5 @@
 # /Website Name/
-This is an request forum application that allows users to log in, send illustration requests, view all public requests, reply to requests with illustration, view users' and individual profile pages.
+This is an request forum application that allows users to log in, send illustration requests, view all public requests, reply to requests with illustration and view users' individual profile pages.
 <br>
 
 ## Group members
