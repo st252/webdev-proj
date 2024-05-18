@@ -3,3 +3,4 @@ __pycache__/
 *.db
 test_data.py
 .DS_Store
+app.db-journal
