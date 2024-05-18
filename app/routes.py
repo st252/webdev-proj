@@ -5,6 +5,7 @@ from app.models import User, Request, Reply
 from app.forms import LoginForm, RegistrationForm, CreateRequest, EditProfileForm, CreateReply
 from urllib.parse import urlsplit
 from datetime import datetime, timezone
+from app.blueprints import main
 
 @main.before_request
 def before_request():
