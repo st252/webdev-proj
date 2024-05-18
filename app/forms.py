@@ -59,3 +59,13 @@ class CreateReply(FlaskForm):
 class CompleteRequest(FlaskForm):
     request_id = HiddenField('Request ID')
     submit = SubmitField('Mark as Complete')
+
+
+class SearchUser(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is None:
+            raise ValidationError("User doesn't exist.")
