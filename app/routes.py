@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from sqlalchemy import and_
-from app import app, db
+from app import db
 from flask_login import current_user, login_user, logout_user, login_required
 from app.blueprints import main
 from app.models import User, Request, Reply
@@ -194,5 +194,5 @@ def search_user():
   if form.validate_on_submit():
     username = form.username.data
     flash('Found User')
-    return redirect(url_for('user', username=username))
+    return redirect(url_for('main.user', username=username))
   return render_template('search_user.html', title='Edit Profile', form=form)
