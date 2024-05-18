@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import RadioField, StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import HiddenField, RadioField, StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError, EqualTo, Length
 from app.models import User
 
@@ -55,3 +55,7 @@ class EditProfileForm(FlaskForm):
 class CreateReply(FlaskForm):
     body = TextAreaField('Body', validators=[DataRequired()])
     submit = SubmitField('Send reply')
+
+class CompleteRequest(FlaskForm):
+    request_id = HiddenField('Request ID')
+    submit = SubmitField('Mark as Complete')

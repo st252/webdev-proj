@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1> All Requests </h1>
+    <p> This board displays all requests  </p>
+    <a href="{{ url_for('public_requests') }}"><button id='show-public-btn'>Show Public Requests</button></a>
+    <a href="{{ url_for('submitRequest') }}"><button> Submit a request </button>  </a>
+    {% for requests in all_requests %}
+    <div id="request-board">
+        {% include 'request_table.html' %}
+    </div>
+    <br>
+    {% endfor %}
+{% endblock %}
