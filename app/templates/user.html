@@ -12,7 +12,7 @@
   {% endif %}
 
   {% if current_user.username == user.username %}
-  <p><a href="{{ url_for('main.edit_profile') }}">Edit your profile</a></p>
+  <p><a id="edit-profile" href="{{ url_for('main.edit_profile') }}">Edit your profile</a></p>
   <p>
     <hr>
     Your Jobs: <br>

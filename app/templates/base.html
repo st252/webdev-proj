@@ -20,11 +20,11 @@
     Illust: 
     <a href="{{ url_for('main.index') }}">Home</a>
     {% if current_user.is_anonymous %}
-    <a href="{{ url_for('main.login') }}">Login</a>
+    <a id="login" href="{{ url_for('main.login') }}">Login</a>
     {% else %}
 
-    <a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
-    <a href="{{ url_for('main.submitRequest') }}">Create a Request</a>
+    <a id="profile" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
+    <a id="create-request" href="{{ url_for('main.submitRequest') }}">Create a Request</a>
     <a href="{{ url_for('main.public_requests') }}">General Request Board</a>
     <a href="{{ url_for('main.search_user') }}">Search</a>
     <a href="{{ url_for('main.logout')}}">Logout</a>
@@ -37,7 +37,7 @@
   {% if messages %}
   <ul>
     {% for message in messages %}
-    <li>{{ message }}</li>
+    <li class="message"> {{ message }} </li>
     {% endfor %}
   </ul>
   {% endif %}

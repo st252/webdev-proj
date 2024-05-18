@@ -4,3 +4,4 @@ __pycache__/
 test_data.py
 .DS_Store
 app.db-journal
+instance/:memory
