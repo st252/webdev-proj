@@ -18,14 +18,14 @@
 <body>
   <div class="header">
     Illust: 
-    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('main.index') }}">Home</a>
     {% if current_user.is_anonymous %}
-    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('main.login') }}">Login</a>
     {% else %}
-    <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-    <a href="{{ url_for('logout')}}">Logout</a>
-    <a href="{{ url_for('submitRequest') }}">Create a Request</a>
-    <a href="{{ url_for('public_requests') }}">General Request Board</a>
+    <a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
+    <a href="{{ url_for('main.logout')}}">Logout</a>
+    <a href="{{ url_for('main.submitRequest') }}">Create a Request</a>
+    <a href="{{ url_for('main.public_requests') }}">General Request Board</a>
     {% endif %}
   </div> 
 

@@ -3,7 +3,7 @@
 {% block content %}
     <h1> General Request Board </h1>
     <p> This board displays all requests that can be completed by anyone.  </p>
-    <a href="{{ url_for('submitRequest') }}"><button> Submit a request </button>  </a>
+    <a href="{{ url_for('main.submitRequest') }}"><button> Submit a request </button>  </a>
     {% for request in public_requests %}
     <table>
         <tr>
@@ -13,8 +13,8 @@
             <th>Completed?</th>
         </tr>
         <tr>
-            <td><a href="{{ url_for('user', username=request.author.username) }}">{{ request.author.username }}</a></td> <!-- turn username into link that directs user to their profile-->
-            <td><a href="{{ url_for('requests', request_id=request.request_id) }}">{{ request.body }}</a></td>
+            <td><a href="{{ url_for('main.user', username=request.author.username) }}">{{ request.author.username }}</a></td> <!-- turn username into link that directs user to their profile-->
+            <td><a href="{{ url_for('main.requests', request_id=request.request_id) }}">{{ request.body }}</a></td>
             <td>{{ request.timestamp }}</td>
             {% if request.body == True %} 
                 <td> Yes </td> <!--replace 'Yes' and 'No' with icons-->

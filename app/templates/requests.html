@@ -3,7 +3,7 @@
 {% block content %}
   <p>
     Request: <br>
-    <a href="{{ url_for('user', username=requests.author.username) }}">{{ requests.author.username }}</a> says: 
+    <a href="{{ url_for('main.user', username=requests.author.username) }}">{{ requests.author.username }}</a> says: 
     <b>{{ requests.body }}</b> <br> 
     {% if requests.artist %}
     artist: {{ requests.artist.username }} <br>
@@ -15,7 +15,7 @@
   {% if requests.artist.username == current_user.username or requests.artist.username == null %}
   <button id="reply-btn">Reply</button>
   <div id="reply-form-req-page">
-    <form action="{{ url_for('send_reply', request_id=requests.request_id) }}" method="post">
+    <form action="{{ url_for('main.send_reply', request_id=requests.request_id) }}" method="post">
       {{ form.hidden_tag() }}
       <p> Please provide the link to your drawing.</p>
       <p> {{ form.body.label }} <br> {{ form.body }} </p>
@@ -25,7 +25,7 @@
   <hr>
   {% endif %}
   {% for reply in replies %}  
-  <a href="{{ url_for('user', username=reply.artist.username) }}">{{ reply.artist.username }}</a> says: 
+  <a href="{{ url_for('main.user', username=reply.artist.username) }}">{{ reply.artist.username }}</a> says: 
     <b>{{ reply.body }}</b> <br> 
     <img src="{{ url_for('static', filename=reply.body) }}" alt="reply image">
     <hr>
