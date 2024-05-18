@@ -1,8 +1,10 @@
 from unittest import TestCase
 from app import create_app, db
 from app.config import TestConfig
+from app.models import User
 
 class BasicUnitTests(TestCase):
+    
     def setUp(self):
         testApp = create_app(TestConfig)
         self.app_context = testApp.app_context()
