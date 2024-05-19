@@ -51,11 +51,14 @@ import app.test_data
 
 8.  **Run the application:**
 
-    ```bash
-    flask run
-    ```
+```bash
+flask run
+```
 
-    Open up a web browser and navigate to `http://localhost:5000`.
+Open up a web browser and navigate to `http://localhost:5000`.
+
+*Note: Images such as cow.png and penguin.png are free for users to use in the 'img' folder
+
 
 <br>
 
