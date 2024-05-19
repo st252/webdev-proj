@@ -21,7 +21,7 @@
     <form action="{{ url_for('main.complete_request', request_id=requests.request_id) }}" method="post">
       {{ complete_form.hidden_tag() }}
       {{ complete_form.request_id(value=requests.request_id) }}
-      {{ complete_form.submit() }}
+      {{ complete_form.submit(class_='form-button') }}
     </form>
     {% endif %}
   </div>
