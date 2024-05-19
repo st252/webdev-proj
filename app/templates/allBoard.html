@@ -2,11 +2,18 @@
 
 {% block content %}
     <h1> All Requests </h1>
-    <p> This board displays all requests  </p>
-    <a href="{{ url_for('main.public_requests') }}"><button id='show-public-btn'>Show Public Requests</button></a>
-    <a href="{{ url_for('main.submitRequest') }}"><button> Submit a request </button>  </a>
+    <p> This board displays all requests </p>
+
+    <button id="show-public-btn" onclick="location.href='{{ url_for('main.public_requests') }}'">
+        Show Public Requests
+    </button>
+
+    <button onclick="location.href='{{ url_for('main.submitRequest') }}'">
+        Submit a Request
+    </button>
+
     {% for requests in all_requests %}
-    <div id="request-board">
+    <div class="request-board">
         {% include 'request_table.html' %}
     </div>
     <br>
