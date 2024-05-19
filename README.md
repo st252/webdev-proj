@@ -8,7 +8,7 @@ This is an request forum application that allows users to log in, send requests 
 | 23118632 | Selina Tan           | st252   |
 | 23621217 | Kiki Zhang           | kik-ki  |
 | 23170244 | Daniel Odijk         | Viper-cell |
-| 23201336 | Chunchig Buyanjargal |   |
+| 23201336 | Chunchig Buyanjargal | N/A |
 
 <br>
 
@@ -28,7 +28,7 @@ This is an request forum application that allows users to log in, send requests 
     source tmp-env/bin/activate
     ```
 
-3. **Install the required packages and libraries**
+3. **Install the required packages and libraries:**
     ```bash
     pip install -r requirements.txt
     ```
@@ -49,3 +49,16 @@ This is an request forum application that allows users to log in, send requests 
 <br>
 
 ## How to run tests for the application
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/st252/webdev-proj.git
+    cd webdev-proj
+    ```
+
+2. **Run the tests:**
+
+   ```bash
+    python -m unittest tests.unit
+    ```
