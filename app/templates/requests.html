@@ -27,7 +27,7 @@
   </div>
     <hr>
     {% if (requests.artist.username == current_user.username or requests.artist.username==null) and requests.complete == False %}
-  <button id="reply-btn">Reply</button>
+  <a class="navbar-button" id="reply-btn">Reply</a>
   <div id="reply-form-req-page">
     <form action="{{ url_for('main.send_reply', request_id=requests.request_id) }}" method="post">
       {{ form.hidden_tag() }}
