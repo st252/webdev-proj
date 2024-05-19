@@ -38,26 +38,25 @@ This is an request forum application that allows users to log in, send requests 
     export GROUP_PROJECT_SECRET_KEY='your-secret-key!'
     ```
 
-5. **Implement database migration(Optional):**
-```bash
-flask db upgrade 24be6862d252
-```
+5. **Implement database migration (Optional):**
+    ```bash
+    flask db upgrade 24be6862d252
+    ```
    
-7. **Open a new terminal and populate database with test data(Optional):**
-```bash
-flask shell
-import app.test_data
-```
+7. **Open a new terminal and populate database with test data (Optional):**
+    ```bash
+    flask shell
+    import app.test_data
+    ```
 
 8.  **Run the application:**
-
-```bash
-flask run
-```
+    ```bash
+    flask run
+    ```
 
 Open up a web browser and navigate to `http://localhost:5000`.
 
-*Note: Images such as cow.png and penguin.png are free for users to use in the 'img' folder
+*Note: Images such as cow.png and penguin.png are free for users to use in the 'img' folder.
 
 
 <br>
