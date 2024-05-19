@@ -26,7 +26,7 @@ class SeleniumTestCase(TestCase):
         self.server_process.start()
 
         options = webdriver.ChromeOptions()
-        #options.add_argument("--headless=new")
+        options.add_argument("--headless=new")
         self.driver = webdriver.Chrome(options=options)
         self.driver.get(localHost)
 
