@@ -31,7 +31,7 @@
   </div>
 
   {% if current_user.username == user.username %}
-  <p><a class="navbar-button" href="{{ url_for('main.edit_profile') }}">Edit your profile</a></p>
+  <p><a id="edit-profile" class="navbar-button" href="{{ url_for('main.edit_profile') }}">Edit your profile</a></p>
 
 <div>
     <hr>
@@ -41,8 +41,8 @@
     {% if request.artist.username == user.username and request.complete == False%}
 
    <div class="data-wrapper">
-     <div class="data-wrapper-label">{{ request.author.username }} says:</div>
-    <div>{{ request.body }}</div> <br>
+     <div class="data-wrapper-label"><a href="{{ url_for('main.user', username=request.author.username) }}">{{ request.author.username }}</a> says: </div>
+    <div><a href="{{ url_for('main.requests', request_id=request.request_id) }}">{{ request.body }}</a></div> <br>
     {% endif %}
     {% endif %}
   </div>
@@ -58,9 +58,9 @@
 
    <div class="data-wrapper">
          <div class="data-wrapper-label">{{ request.author.username }} says:</div>
-        <div>{{ request.body }}</div> <br>
+        <div><a href="{{ url_for('main.requests', request_id=request.request_id) }}">{{ request.body }}</a></div> <br>
         {% if request.artist %}
-       <div><span class="pink-text">Artist:</span> {{ request.artist.username }} </div><br>
+       <div><span class="pink-text">Artist:</span> <a href="{{ url_for('main.user', username=request.artist.username) }}">{{ request.artist.username }}</a> </div><br>
         {% else %}
        <div><span class="pink-text"> Artist:</span> Open to all!</div>
         {% endif %}
@@ -72,7 +72,7 @@
   <p>
     {% if reply.artist.username == user.username %}
    <div class="data-wrapper">
-    <div class="data-wrapper-label">Reply to: {{ reply.parent.body }}</div><br>
+    <div class="data-wrapper-label">Reply to: <a href="{{ url_for('main.requests', request_id=reply.parent.request_id) }}">{{ reply.parent.body }}</a></div><br>
     <div class="data-wrapper-label">{{ reply.artist.username }} says:</div>
     <div>{{ reply.body }}</div> <br>
     <img src="{{ url_for('static', filename=reply.body) }}" alt="local image">

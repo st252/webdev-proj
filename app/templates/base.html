@@ -21,10 +21,10 @@
 
     <a class="navbar-button" href="{{ url_for('main.index') }}">Home</a>
     {% if current_user.is_anonymous %}
-    <a class="navbar-button" href="{{ url_for('main.login') }}">Login</a>
+    <a id="login" class="navbar-button" href="{{ url_for('main.login') }}">Login</a>
     {% else %}
-    <a class="navbar-button" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
-    <a class="navbar-button" href="{{ url_for('main.submitRequest') }}">Create a Request</a>
+    <a id="profile" class="navbar-button" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
+    <a id="create-request" class="navbar-button" href="{{ url_for('main.submitRequest') }}">Create a Request</a>
     <a class="navbar-button" href="{{ url_for('main.public_requests') }}">General Request Board</a>
     <a class="navbar-button" href="{{ url_for('main.search_user') }}">Search</a>
     <a class="navbar-button" href="{{ url_for('main.logout')}}">Logout</a>
@@ -37,7 +37,7 @@
   {% if messages %}
   <ul>
     {% for message in messages %}
-    <li>{{ message }}</li>
+    <li class="message"> {{ message }} </li>
     {% endfor %}
   </ul>
   {% endif %}
