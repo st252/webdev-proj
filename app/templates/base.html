@@ -19,14 +19,14 @@
   <div class="navbar-header">
         <img  class='logo-img' src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
 
-    <a class="navbar-button" href="{{ url_for('index') }}">Home</a>
+    <a class="navbar-button" href="{{ url_for('main.index') }}">Home</a>
     {% if current_user.is_anonymous %}
-    <a class="navbar-button" href="{{ url_for('login') }}">Login</a>
+    <a class="navbar-button" href="{{ url_for('main.login') }}">Login</a>
     {% else %}
-    <a class="navbar-button" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-    <a class="navbar-button" href="{{ url_for('logout')}}">Logout</a>
-    <a class="navbar-button" href="{{ url_for('submitRequest') }}">Create a Request</a>
-    <a class="navbar-button" href="{{ url_for('public_requests') }}">General Request Board</a>
+    <a class="navbar-button" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
+    <a class="navbar-button" href="{{ url_for('main.logout')}}">Logout</a>
+    <a class="navbar-button" href="{{ url_for('main.submitRequest') }}">Create a Request</a>
+    <a class="navbar-button" href="{{ url_for('main.public_requests') }}">General Request Board</a>
     {% endif %}
   </div> 
 
