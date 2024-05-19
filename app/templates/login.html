@@ -1,28 +1,38 @@
 {% extends "base.html" %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+{% endblock %}
+
 {% block content %}
+
+<div class='form-wrapper login-form-wrapper'>
+
   <h1>Sign In</h1>
-  <form action="" method="post" novalidate>
+  <form id="login-form" action="" method="post" novalidate>
     {{ form.hidden_tag() }}
-    <p>
-      {{ form.username.label }} <br>
-      {{ form.username }} <br> 
+
+            {{ form.username.label(class_='form-label') }} <br>
+        {{ form.username(class_='form-input') }} <br>
       {% for error in form.username.errors %}
       <span class="error-msg">[{{ error }}]</span>
       {% endfor %}
-    </p>
-    <p>
-      {{ form.password.label }} <br>
-      {{ form.password }} <br>
+
+            {{ form.password.label(class_='form-label') }} <br>
+        {{ form.password(class_='form-input') }} <br>
       {% for error in form.password.errors %}
       <span class="error-msg">[{{ error }}]</span>
       {% endfor %}
-    </p>
-    <p>
-      {{ form.remember_me.label }} <br>
-      {{ form.remember_me }}
-    </p>
-    <p>{{ form.submit() }}</p>
+
+
+     <div class='remember-wrapper'>
+      {{ form.remember_me.label(class_='form-label') }}
+      {{ form.remember_me(class_=' checkbox-input') }}
+     </div>
+
+      <p>{{ form.submit(class_='form-button') }}</p>
   </form>
-  <p>New User? <a href="{{ url_for('main.register') }}">Click to Register!</a></p>
+    <p>New User? <a class='navbar-button' href="{{ url_for('register') }}">Click to Register!</a></p>
+
+</div>
 {% endblock %}

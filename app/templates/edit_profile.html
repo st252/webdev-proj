@@ -1,32 +1,50 @@
 {% extends "base.html" %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='edit-profile.css') }}">
+{% endblock %}
+
 {% block content %}
-  <h1>Edit Profile</h1>
-  <form action="" method="post">
+
+<div class="form-wrapper edit-profile-form-wrapper">
+<h1>Edit Profile</h1>
+
+<form class="edit-profile-form" action="" method="post">
     {{ form.hidden_tag() }}
-    <p>
-      {{ form.username.label }}<br>
-      {{ form.username }} <br>
-      {% for error in form.username.errors %}
-      <span class="error-msg">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.bio.label }}<br>
-      {{ form.bio }}<br>
-      {% for error in form.bio.errors %}
-      <span class="error-msg">[{{ error }}]</span>
-      {% endfor %}      
-    </p>
-    <p>
-      {{ form.status.label }}<br>
-      {% for subfield in form.status %}
-      {{ subfield }} {{ subfield.label }}
-      {% endfor %}
-      {% for error in form.status.errors %}
-      <span class="error-msg">[{{ error }}]</span>
-      {% endfor %}      
-    </p>
-    <p>{{ form.submit }}</p>
-  </form>
+
+        {{ form.username.label(class_='form-label') }}<br>
+        {{ form.username(class_='form-input') }} <br>
+        {% for error in form.username.errors %}
+            <span class="error-msg">[{{ error }}]</span>
+        {% endfor %}
+
+
+        {{ form.bio.label(class_='form-label') }}<br>
+        {{ form.bio(class_='form-input') }}<br>
+        {% for error in form.bio.errors %}
+            <span class="error-msg">[{{ error }}]</span>
+        {% endfor %}
+
+
+         <div class="request-status-wrapper">
+            {{ form.status.label(class_='form-label') }}
+
+             <div>
+            {% for subfield in form.status %}
+                 <div class="status-wrapper">
+                    <div>{{ subfield(class_='form-input') }}</div>
+                     <div>{{ subfield.label(class_='status-label') }}</div>
+                 </div>
+            {% endfor %}
+            </div>
+
+             {% for error in form.status.errors %}
+                <span class="error-msg">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+    <p>{{ form.submit(class_='form-button') }}</p>
+</form>
+</div>
+
 {% endblock %}

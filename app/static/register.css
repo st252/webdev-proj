@@ -1,0 +1,29 @@
+.register-form  {
+  display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    align-content: center;
+    align-items: center;
+
+    background-color: #1c1718;
+
+    border-radius: 1em;
+    padding: 1.5em;
+
+
+}
+
+.register-form-wrapper  {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}
+
+
+.register-button-wrapper  {
+ display: flex;
+ justify-content: center;
+}

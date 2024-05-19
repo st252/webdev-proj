@@ -1,14 +1,37 @@
 {% extends "base.html" %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='board.css') }}">
+{% endblock %}
+
 {% block content %}
     <h1> General Request Board </h1>
-    <p> This board displays all requests that can be completed by anyone.  </p>
-    <a href="{{ url_for('main.all_requests') }}"><button id='show-all-btn'>Show All Requests</button></a>
-    <a href="{{ url_for('main.submitRequest') }}"><button> Submit a request </button>  </a>
-    {% for requests in public_requests %}
-    <div id="request-board">
-        {% include 'request_table.html' %}
-    </div>
+    <p class="highlighted-text"> This board displays all requests that can be completed by anyone.  </p>
+    <a href="{{ url_for('submitRequest') }}"  class="navbar-button">Submit a request</a>
+    {% for request in public_requests %}
+    <table  class="full-width-table">
+        <tr>
+            <th>Requestor</th>
+            <th>Description</th>
+            <th>Timestamp</th>
+            <th>Completed?</th>
+        </tr>
+        <tr>
+            <!-- turn username into link that directs user to their profile-->
+            <td><a href="{{ url_for('user', username=request.author.username) }}">{{ request.author.username }}</a></td>
+            <td><a href="{{ url_for('requests', request_id=request.request_id) }}">{{ request.body }}</a></td>
+            <td>{{ request.timestamp }}</td>
+            {% if request.body == True %} 
+                <!--replace 'Yes' and 'No' with icons-->
+                <td> Yes </td>
+            {% else %}
+                <td> No </td>
+            {% endif %}
+        </tr>
+
+    <!-- add replies here -->
+  
+    </table>
     <br>
     {% endfor %}
 {% endblock %}

@@ -1,0 +1,16 @@
+.data-wrapper  {
+  background-color: #1c1718;
+  border-radius: 1em;
+  padding: 1em;
+  margin: 1em;
+
+  font-weight: bold;
+
+}
+
+.data-wrapper-label  {
+  color: #ff0266;
+  font-weight: bold;
+
+  margin-bottom: 0.5em;
+}

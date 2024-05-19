@@ -1,0 +1,61 @@
+.full-width-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.full-width-table th, .full-width-table td {
+    width: 25%;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ff0266;
+}
+
+.full-width-table th {
+    background-color: #ff0266;
+}
+
+/* Mobile */
+
+
+@media screen and (min-width: 1200px) {
+  .full-width-table  {
+    width: 60%;
+    padding: 2em;
+  }
+
+}
+
+@media screen and (max-width: 1200px) {
+   .full-width-table  {
+    width: 70%;
+  }
+
+
+
+}
+
+@media screen and (max-width: 700px) {
+   .full-width-table  {
+    width: 80%;
+  }
+
+
+}
+
+
+@media screen and (max-width: 600px) {
+  .full-width-table  {
+    width: 90%;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+   .full-width-table  {
+    width: 99%;
+
+
+  }
+
+}
