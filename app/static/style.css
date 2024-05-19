@@ -4,10 +4,14 @@
 box-sizing: border-box;
 }
 
+#reply-form-req-page {
+  display: none;
+}
 
 img  {
-  width: 50px;
+  width: 200px;
 }
+
 
 body  {
   background-color: #352b2e;
@@ -88,7 +92,6 @@ body  {
 
 
 a {
-    text-decoration: none;
     color: inherit;
     background: none;
     border: none;
