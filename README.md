@@ -38,7 +38,7 @@ This is an request forum application that allows users to log in, send requests 
     export GROUP_PROJECT_SECRET_KEY='your-secret-key!'
     ```
 
-5. **Implement database (Optional):**
+5. **Implement database:**
     ```bash
     flask db upgrade 24be6862d252
     ```
