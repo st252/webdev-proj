@@ -139,9 +139,6 @@ def requests(request_id):
         return redirect(url_for('main./requests/<request_id>'))
     if complete_form.validate_on_submit():
         request = Request.query.get_or_404(complete_form.request_id.data)
-        if request.author.id != current_user.id or request.artist.id != current_user.id:
-            flash('You are not authorised for this action.')
-            return redirect(url_for('main.requests', request_id=request_id))
         
         request.complete = True
         db.session.commit()
@@ -176,12 +173,6 @@ def send_reply(request_id):
 @login_required
 def complete_request(request_id):
     req = Request.query.filter_by(request_id=request_id).first_or_404()
-    if req.author.id != current_user.id:
-        flash('You are not authorised for this action.')
-        return redirect(url_for('main.requests', request_id=req.request_id))
-    if req.artist_id is not None and current_user.id != req.artist_id:
-        flash('You are not authorised for this action.')
-        return redirect(url_for('main.requests', request_id=req.request_id))
     req.complete = True
     db.session.commit()
     flash('Request complete')
