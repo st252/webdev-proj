@@ -1,0 +1,42 @@
+.create-form-wrapper  {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    align-content: center;
+    align-items: center;
+    background-color: #1c1718;
+
+    border-radius: 1em;
+    padding: 1.5em;
+
+}
+
+.create-container  {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    align-content: center;
+    align-items: center;
+    background-color: #1c1718;
+
+    border-radius: 1em;
+    padding: 1.5em;
+
+}
+
+.info-container  {
+  display: flex;
+  flex-wrap: wrap;
+
+  padding: 1em;
+  margin: 0.5em;
+}

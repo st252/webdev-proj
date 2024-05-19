@@ -1,5 +1,5 @@
-# /Website Name/
-This is an request forum application that allows users to log in, send illustration requests, view all public requests, reply to requests with illustration and view users' individual profile pages.
+# Illuquest
+This is an request forum application that allows users to log in, send requests for illustrations, view all requests, reply to requests with illustrations, search users, view other users' profile pages and toggle their availability status to receive requests.
 <br>
 
 ## Group members
@@ -7,7 +7,7 @@ This is an request forum application that allows users to log in, send illustrat
 |----------|----------------------|-----------------|
 | 23118632 | Selina Tan           | st252   |
 | 23621217 | Kiki Zhang           | kik-ki  |
-| 23170244 | Daniel Odijk         |   |
+| 23170244 | Daniel Odijk         | Viper-cell |
 | 23201336 | Chunchig Buyanjargal |   |
 
 <br>

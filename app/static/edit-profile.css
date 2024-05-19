@@ -1,0 +1,49 @@
+.edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    align-content: center;
+    align-items: center;
+
+    background-color: #1c1718;
+
+    border-radius: 1em;
+    padding: 1.5em;
+
+ }
+
+.edit-profile-form-wrapper  {
+
+}
+
+.request-status-wrapper  {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+.status-wrapper  {
+    display: flex;
+    flex-wrap: wrap;
+   align-items: flex-end;
+    align-content: flex-end;
+
+}
+
+.status-wrapper div  {
+    margin: 0.5em;
+
+    display: flex;
+
+    align-items: flex-end;
+    align-content: flex-end;
+
+
+}
+
+.status-label  {
+  color: #ff0266;
+  font-weight: bold;
+}

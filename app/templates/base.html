@@ -3,35 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="{{ url_for('static',filename='script.js') }}"></script>
+  
     
   {% if title %}
   <title>Illuquest - {{ title }}</title>
   {% else %}
-  <title>Illuquest</title>
+  <title>Illuquest </title>
   {% endif %}
 
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+  {% block stylesheets %}{% endblock %}
 
 </head>
 <body>
-  <div class="header">
-    Illust: 
-    <a href="{{ url_for('main.index') }}">Home</a>
-    {% if current_user.is_anonymous %}
-    <a id="login" href="{{ url_for('main.login') }}">Login</a>
-    {% else %}
+  <div class="navbar-header">
+        <img  class='logo-img' src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
 
-    <a id="profile" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
-    <a id="create-request" href="{{ url_for('main.submitRequest') }}">Create a Request</a>
-    <a href="{{ url_for('main.public_requests') }}">General Request Board</a>
-    <a href="{{ url_for('main.search_user') }}">Search</a>
-    <a href="{{ url_for('main.logout')}}">Logout</a>
+    <a class="navbar-button" href="{{ url_for('main.index') }}">Home</a>
+    {% if current_user.is_anonymous %}
+    <a id="login" class="navbar-button" href="{{ url_for('main.login') }}">Login</a>
+    {% else %}
+    <a id="profile" class="navbar-button" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
+    <a id="create-request" class="navbar-button" href="{{ url_for('main.submitRequest') }}">Create a Request</a>
+    <a class="navbar-button" href="{{ url_for('main.public_requests') }}">General Request Board</a>
+    <a class="navbar-button" href="{{ url_for('main.search_user') }}">Search</a>
+    <a class="navbar-button" href="{{ url_for('main.logout')}}">Logout</a>
     {% endif %}
   </div> 
 
-  <hr>
+<div class="content-wrapper">
   <!--Error messages-->
   {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -43,5 +43,7 @@
   {% endif %}
   {% endwith %}
   {% block content %}{% endblock %}
+
+</div>
 </body>
 </html>

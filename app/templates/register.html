@@ -1,30 +1,37 @@
 {% extends "base.html" %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+{% endblock %}
+
+
 {% block content %}
-  <h1>Register</h1>
-  <form action="" method="post">
+
+<div class="form-wrapper register-form-wrapper">
+<h1>Register</h1>
+<form class="register-form" action="" method="post">
     {{ form.hidden_tag() }}
-    <p>
-      {{ form.username.label }} <br>
-      {{ form.username }} <br> 
-      {% for error in form.username.errors %}
-      <span class="error-msg">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.password.label }} <br>
-      {{ form.password }} <br>
-      {% for error in form.password.errors %}
-      <span class="error-msg">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.password2.label }} <br>
-      {{ form.password2 }} <br>
-      {% for error in form.password2.errors %}
-      <span class="error-msg">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>{{ form.submit() }}</p>
-  </form>
+
+        {{ form.username.label(class_='form-label') }} <br>
+        {{ form.username(class_='form-input') }} <br>
+        {% for error in form.username.errors %}
+            <span class="error-msg">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.password.label(class_='form-label') }} <br>
+        {{ form.password(class_='form-input') }} <br>
+        {% for error in form.password.errors %}
+            <span class="error-msg">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.password2.label(class_='form-label') }} <br>
+        {{ form.password2(class_='form-input') }} <br>
+        {% for error in form.password2.errors %}
+            <span class="error-msg">[{{ error }}]</span>
+        {% endfor %}
+
+    <div class="register-button-wrapper">{{ form.submit(class_='form-button') }}</div>
+</form>
+</div>
+
 {% endblock %}
