@@ -38,7 +38,18 @@ This is an request forum application that allows users to log in, send requests 
     export GROUP_PROJECT_SECRET_KEY='your-secret-key!'
     ```
 
-5.  **Run the application:**
+5. **Implement database migration(Optional):**
+```bash
+flask db upgrade 24be6862d252
+```
+   
+7. **Open a new terminal and populate database with test data(Optional):**
+```bash
+flask shell
+import app.test_data
+```
+
+8.  **Run the application:**
 
     ```bash
     flask run
@@ -57,8 +68,14 @@ This is an request forum application that allows users to log in, send requests 
     cd webdev-proj
     ```
 
-2. **Run the tests:**
+2. **Run the unit tests:**
 
    ```bash
     python -m unittest tests.unit
+    ```
+
+3. **Run the selenium tests:**
+   `
+   ``bash
+    python -m unittest tests.selenium  
     ```
