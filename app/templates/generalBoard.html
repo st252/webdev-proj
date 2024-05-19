@@ -7,31 +7,10 @@
 {% block content %}
     <h1> General Request Board </h1>
     <p class="highlighted-text"> This board displays all requests that can be completed by anyone.  </p>
+    <a href="{{ url_for('main.all_requests') }}" id='show-all-btn' class="navbar-button"> Show All Requests</a>
     <a href="{{ url_for('main.submitRequest') }}"  class="navbar-button">Submit a request</a>
-    {% for request in public_requests %}
-    <table  class="full-width-table">
-        <tr>
-            <th>Requestor</th>
-            <th>Description</th>
-            <th>Timestamp</th>
-            <th>Completed?</th>
-        </tr>
-        <tr>
-            <!-- turn username into link that directs user to their profile-->
-            <td><a href="{{ url_for('main.user', username=request.author.username) }}">{{ request.author.username }}</a></td>
-            <td><a href="{{ url_for('main.requests', request_id=request.request_id) }}">{{ request.body }}</a></td>
-            <td>{{ request.timestamp }}</td>
-            {% if request.body == True %} 
-                <!--replace 'Yes' and 'No' with icons-->
-                <td> Yes </td>
-            {% else %}
-                <td> No </td>
-            {% endif %}
-        </tr>
-
-    <!-- add replies here -->
-  
-    </table>
+    {% for requests in public_requests %}
+        {% include 'request_table.html' %}
     <br>
     {% endfor %}
 {% endblock %}

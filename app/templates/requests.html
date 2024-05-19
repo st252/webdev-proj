@@ -4,18 +4,44 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
 {% endblock %}
 
-
 {% block content %}
-<h2>Requests</h2><br>
+  <p>
+    <h2>Requests</h2><br>
 
-  <div class="data-wrapper">
-    <div class="data-wrapper-label">{{ requests.author.username }} says:</div>
-    <div>{{ requests.body }}</div> <br>
-    {% if requests.artist %}
-    <div><span class="pink-text">Artist:</span> {{ requests.artist.username }}</span><br>
-    {% else %}
-      <div><span  class="pink-text">Artist:</span> Open to all!</div>
+    <div class="data-wrapper">
+      <div class="data-wrapper-label"><a href="{{ url_for('main.user', username=requests.author.username) }}">{{ requests.author.username }}</a> says:</div>
+      <div>{{ requests.body }}</div> <br>
+      {% if requests.artist %}
+      <div><span class="pink-text">Artist:</span> {{ requests.artist.username }}</span><br>
+      {% else %}
+        <div><span  class="pink-text">Artist:</span> Open to all!</div>
+      {% endif %}
+    
+    {% if requests.author.username == current_user.username or requests.artist.username == current_user.username %}
+    <form action="{{ url_for('main.complete_request', request_id=requests.request_id) }}" method="post">
+      {{ complete_form.hidden_tag() }}
+      {{ complete_form.request_id(value=requests.request_id) }}
+      {{ complete_form.submit(class_='form-button') }}
+    </form>
     {% endif %}
   </div>
+    <hr>
+    {% if (requests.artist.username == current_user.username or requests.artist.username==null) and requests.complete == False %}
+  <a class="navbar-button" id="reply-btn">Reply</a>
+  <div id="reply-form-req-page">
+    <form action="{{ url_for('main.send_reply', request_id=requests.request_id) }}" method="post">
+      {{ form.hidden_tag() }}
+      <p> Please provide the link to your drawing.</p>
+      <p> {{ form.body.label }} <br> {{ form.body }} </p>
+      <p> {{ form.submit() }} </p>
+    </form>
+  </div>
   <hr>
+  {% endif %}
+  {% for reply in replies %}  
+  <a href="{{ url_for('main.user', username=reply.artist.username) }}">{{ reply.artist.username }}</a> says: 
+    <b>{{ reply.body }}</b> <br> 
+    <img src="{{ url_for('static', filename=reply.body) }}" alt="reply image">
+    <hr>
+  {% endfor %}
 {% endblock %}

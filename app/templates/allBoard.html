@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='board.css') }}">
+{% endblock %}
+
 {% block content %}
     <h1> All Requests </h1>
     <p> This board displays all requests </p>
 
-    <button id="show-public-btn" onclick="location.href='{{ url_for('main.public_requests') }}'">
-        Show Public Requests
-    </button>
-
-    <button onclick="location.href='{{ url_for('main.submitRequest') }}'">
-        Submit a Request
-    </button>
+    <a href="{{ url_for('main.all_requests') }}" id='show-all-btn' class="navbar-button"> Show All Requests</a>
+    <a href="{{ url_for('main.submitRequest') }}"  class="navbar-button">Submit a request</a>
 
     {% for requests in all_requests %}
     <div class="request-board">
