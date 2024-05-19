@@ -6,9 +6,9 @@
   
     
   {% if title %}
-  <title>Illust - {{ title }}</title>
+  <title>Illuquest - {{ title }}</title>
   {% else %}
-  <title>Illust</title>
+  <title>Illuquest </title>
   {% endif %}
 
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
@@ -24,9 +24,10 @@
     <a class="navbar-button" href="{{ url_for('main.login') }}">Login</a>
     {% else %}
     <a class="navbar-button" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
-    <a class="navbar-button" href="{{ url_for('main.logout')}}">Logout</a>
     <a class="navbar-button" href="{{ url_for('main.submitRequest') }}">Create a Request</a>
     <a class="navbar-button" href="{{ url_for('main.public_requests') }}">General Request Board</a>
+    <a class="navbar-button" href="{{ url_for('main.search_user') }}">Search</a>
+    <a class="navbar-button" href="{{ url_for('main.logout')}}">Logout</a>
     {% endif %}
   </div> 
 
