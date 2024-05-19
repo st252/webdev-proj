@@ -77,7 +77,7 @@ Open up a web browser and navigate to `http://localhost:5000`.
     ```
 
 3. **Run the selenium tests:**
-   `
-   ``bash
+
+    ```bash
     python -m unittest tests.selenium  
     ```
